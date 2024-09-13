@@ -16,18 +16,6 @@ COPY . /app
 RUN pip3 install --upgrade pip \
     && pip3 install -r /app/requirements.txt
 
-# install node version 18.*
-# RUN curl -sL https://deb.nodesource.com/setup_18.x -o /tmp/nodesource_setup.sh \ 
-#     && bash /tmp/nodesource_setup.sh \
-#     && apt-get install -y nodejs \
-#     && node -v
-
-# install node packages
-# RUN --mount=type=bind,source=package.json,target=package.json \
-#     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-#     --mount=type=cache,target=/root/.npm \
-#     npm ci --omit=dev
-
 EXPOSE 3000
 
 ENTRYPOINT ["/app/entrypoint.sh"]

@@ -16,6 +16,4 @@ echo 3 > /proc/sys/vm/drop_caches
 
 sleep 5
 
-# exec node --max-old-space-size=12288 /app/server.mjs
-
 ulimit -v 12582912 && exec python3 /app/server.py

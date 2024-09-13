@@ -1,0 +1,16 @@
+{
+  "name": "yorkgpt-container",
+  "version": "1.0.0",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/core": "^0.2.31",
+    "@langchain/ollama": "^0.0.4",
+    "express": "^4.19.2"
+  }
+}

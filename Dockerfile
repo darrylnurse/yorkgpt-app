@@ -11,12 +11,12 @@ RUN apt-get update \
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # copy files into app
-COPY . /app
+COPY /src /app/src
 
 # install python packages
 RUN pip3 install --upgrade pip \
-    && pip3 install -r /app/requirements.txt
+    && pip3 install -r /app/src/requirements.txt
     
 EXPOSE 3000
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/src/entrypoint.sh"]

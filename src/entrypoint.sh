@@ -19,5 +19,6 @@ ollama pull yorkgpt/yorkgpt
 echo 3 > /proc/sys/vm/drop_caches
 
 sleep 5
+
 # increase process memory limit to 12GB and start server
-ulimit -v 12582912 && exec python3 /app/server.py
+ulimit -v 12582912 && exec python3 /app/src/server.py

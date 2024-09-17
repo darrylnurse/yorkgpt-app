@@ -4,15 +4,16 @@ services:
       context: .
     container_name: yorkgpt-server
     volumes:
-      - .:/app
+      - ./src:/app/src
     ports:
       - 3000:3000
     tty: true
     environment:
-      - OLLAMA_MODELS=../root/.ollama/models
+      - OLLAMA_MODELS=../../root/.ollama/models
       - OLLAMA_HOST=http://0.0.0.0:11434
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_INTEL_GPU=true
+      - OLLAMA_MAX_LOADED_MODELS=1
     privileged: true
     restart: unless-stopped
       

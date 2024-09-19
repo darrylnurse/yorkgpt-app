@@ -16,5 +16,15 @@ services:
       - OLLAMA_MAX_LOADED_MODELS=1
     privileged: true
     restart: unless-stopped
-      
-
+  
+  vectordb:
+    image: pgvector/pgvector:pg16
+    container_name: vector-db
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=vectordb
+      - POSTGRES_USER=rag
+      - POSTGRES_PASSWORD=langchain
+      - POSTGRES_HOST_AUTH_METHOD=trust

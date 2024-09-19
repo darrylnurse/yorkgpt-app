@@ -2,11 +2,12 @@ from langchain_cohere import CohereEmbeddings
 from langchain_postgres import PGVector
 from langchain_postgres.vectorstores import PGVector
 from rag_data import rag_data
+from get_key import get_api_key
 
 # lets start by connecting to the vector database container
 connection = "postgresql+psycopg://rag:langchain@vectordb:5432/vectordb" 
 embeddings = CohereEmbeddings(
-    cohere_api_key='8mVqopwItZuTkLhfLY6LtMsBOajqYD9ECn9rSkuh',
+    cohere_api_key=get_api_key('embedding'),
     model="embed-english-light-v3.0"
 )
 

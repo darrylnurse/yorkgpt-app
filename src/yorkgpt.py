@@ -7,7 +7,7 @@ import json
 # initialize model
 llm = ChatOllama(
     model="yorkgpt/yorkgpt",
-    temperature=0,
+    temperature=0.1,
     base_url="http://localhost:11434",
 )
 

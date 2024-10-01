@@ -2,6 +2,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: app.Dockerfile
     container_name: yorkgpt-server
     volumes:
       - ./src:/app/src

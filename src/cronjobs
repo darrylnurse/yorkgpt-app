@@ -1,0 +1,2 @@
+0 0 * * * root python3 /app/src/reset_vectors.py >> /proc/1/fd/1 2>/proc/1/fd/2
+0 0 * * * root ollama pull yorkgpt/yorkgpt >> /proc/1/fd/1 2>/proc/1/fd/2

@@ -1,7 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
-from vectorstore import vectorstore
+from vectorstore import get_vectorstore
 import json
 
 # initialize model
@@ -12,6 +12,9 @@ llm = ChatOllama(
 )
 
 def get_model_response(question) :
+
+    # retrieve vectorstore
+    vectorstore = get_vectorstore()
 
     # retrieve document closest to question from database
     retrieval = vectorstore.similarity_search(question, k=1)[0].metadata

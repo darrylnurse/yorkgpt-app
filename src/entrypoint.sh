@@ -23,4 +23,4 @@ sleep 5
 cron -f -l 2
 
 # increase process memory limit to 12GB and start server
-ulimit -v 12582912 && exec python3 /app/src/server.py
+ulimit -v 12582912 && exec python3 /app/src/api/server.py

@@ -15,10 +15,8 @@ COPY /src /app/src
 
 # install python packages
 RUN pip3 install --upgrade pip \
-    && pip3 install -r /app/src/requirements.txt
-
-# make sure the python file has executable permissions
-RUN chmod +x /app/src/colabctl.py
+    && pip3 install -r /app/src/requirements/app_requirements.txt \
+    && pip3 install -r /app/src/requirements/train_requirements.txt
 
 # copy cron file to the cronjob directory
 ADD /src/cronjobs /etc/cronjobs

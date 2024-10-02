@@ -7,11 +7,9 @@ def get_text_data():
 
     text_data = []
     for response in responses:
-        desc = DataHelper.find_values(response, 'description', 'title')
-        plaintext = DataHelper.find_values(response, 'plaintext', 'title')
-        title = DataHelper.find_values(response, 'title', 'title')
-        text_data.extend(desc)
-        text_data.extend(plaintext)
-        text_data.extend(title)
+        all_values = DataHelper.find_values(response, 'description', 'plaintext', 'title')
+        text_data.extend([text for text in all_values if DataHelper.is_valid_string(text)])
 
-    return text_data
+    filtered_data = [text for text in text_data if DataHelper.is_valid_string(text)]
+
+    return filtered_data

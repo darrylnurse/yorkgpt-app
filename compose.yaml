@@ -16,6 +16,7 @@ services:
       - OLLAMA_INTEL_GPU=true
       - OLLAMA_MAX_LOADED_MODELS=1
       - EMBEDDING_API_KEY_FILE=/run/secrets/embedding_api_key
+      - HF_TOKEN=/run/secrets/huggingface_token
     privileged: true
     restart: unless-stopped
     secrets:
@@ -38,3 +39,5 @@ services:
 secrets:
   embedding_api_key:
     file: ./embedding_api_key.txt
+  huggingface_token:
+    file: ./huggingface_token.txt

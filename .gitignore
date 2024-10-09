@@ -2,4 +2,5 @@ __pycache__
 command.txt
 embedding_api_key.txt
 huggingface_token.txt
+db_connection_string.txt
 todo.txt

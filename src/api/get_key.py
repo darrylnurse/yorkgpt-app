@@ -1,11 +1,9 @@
 import os
 
-def get_api_key(name):
-
-    uppercase_name = name.upper()
+def get_key(name):
 
     # get api key file
-    api_key_file = os.getenv(f'{uppercase_name}_API_KEY_FILE', f'/run/secrets/{name}_api_key')
+    api_key_file = os.getenv(f'{name}', f'/run/secrets/{name}')
     
     # read secret from the file
     try:

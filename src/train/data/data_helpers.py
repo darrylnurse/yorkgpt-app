@@ -54,6 +54,6 @@ class DataHelper:
         return [line.strip() for line in lines]
     
     @staticmethod
-    def is_valid_string(text):
+    def is_valid_text(text):
 
         return re.match(r'^[A-Za-z.,\s]+$', text) is not None

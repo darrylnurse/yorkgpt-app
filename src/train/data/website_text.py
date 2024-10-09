@@ -10,6 +10,6 @@ def get_text_data():
         all_values = DataHelper.find_values(response, 'description', 'plaintext', 'title')
         text_data.extend([text for text in all_values if DataHelper.is_valid_string(text)])
 
-    filtered_data = [text for text in text_data if DataHelper.is_valid_string(text)]
+    filtered_data = [text for text in text_data if DataHelper.is_valid_text(text)]
 
     return filtered_data

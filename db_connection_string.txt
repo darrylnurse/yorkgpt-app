@@ -1,1 +1,0 @@
-postgresql+psycopg://rag:langchain@vectordb:5432/vectordb

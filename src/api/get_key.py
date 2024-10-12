@@ -12,5 +12,3 @@ def get_key(name):
         return api_key
     except FileNotFoundError:
         raise RuntimeError(f"API key file {api_key_file} not found.")
-    
-

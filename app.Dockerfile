@@ -18,8 +18,6 @@ RUN pip3 install --upgrade pip \
     && pip3 install -r /app/src/requirements/app_requirements.txt \
     && pip3 install -r /app/src/requirements/train_requirements.txt
 
-RUN chmod +x 
-
 # copy cron file to the cronjob directory
 ADD /src/cronjobs /etc/cronjobs
 

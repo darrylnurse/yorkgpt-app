@@ -55,5 +55,13 @@ class DataHelper:
     
     @staticmethod
     def is_valid_text(text):
-
-        return re.match(r'^[A-Za-z.,\s]+$', text) is not None
+        min_length = 100
+        return (
+            len(text) >= min_length and 
+            re.match(r'^[A-Za-z.,\s]+$', text) is not None
+        )
+    
+    @staticmethod
+    def format_space(text):
+        nbsp_pattern = r'[\xa0\u200B\u2003\u2002\u2009\u2007\u202F]' # handles different types of spaces
+        return re.sub(nbsp_pattern, ' ', text)

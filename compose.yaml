@@ -21,8 +21,6 @@ services:
       - DB_CONNECTION=/run/secrets/db_connection_string
     privileged: true
     restart: unless-stopped
-    networks:
-      - yorkgpt-network
     secrets:
       - embedding_api_key
       - huggingface_token
@@ -49,7 +47,3 @@ secrets:
     file: ./huggingface_token.txt
   db_connection_string:
     file: ./db_connection_string.txt
-
-networks:
-  yorkgpt-network:
-    driver: bridge

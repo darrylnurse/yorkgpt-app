@@ -1,8 +1,6 @@
 from unsloth import FastLanguageModel
 from api.get_key import get_key
 import threading
-import torch
-
 
 max_seq_length = 2048
 _model = None

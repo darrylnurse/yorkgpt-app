@@ -1,6 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
+from reset_vectors import reset_vectors
 from vectorstore import get_vectorstore
 import json
 
@@ -10,6 +11,9 @@ llm = ChatOllama(
     temperature=0.1,
     base_url="http://localhost:11434",
 )
+
+# create vectors in the database
+reset_vectors()
 
 def get_model_response(question) :
 

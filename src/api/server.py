@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from yorkgpt import get_model_response
+from waitress import serve
 
 # initialize Flask app
 app = Flask(__name__)
@@ -26,4 +27,4 @@ def yorkgpt():
 
 # start the Flask server
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000, debug=True)
+    serve(app, host="0.0.0.0", port=3000)

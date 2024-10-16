@@ -1,30 +1,12 @@
-from unsloth.chat_templates import get_chat_template
-from model_init import get_model_and_tokenizer, max_seq_length
 from trl import SFTTrainer
 from transformers import TrainingArguments
 from unsloth import is_bfloat16_supported
+from model_init import get_model_and_tokenizer, max_seq_length
+from import_dataset import import_dataset
 
 model, tokenizer = get_model_and_tokenizer()
 
-tokenizer = get_chat_template(
-    tokenizer,
-    chat_template = "phi-3",
-    mapping = {"role" : "from", "content" : "value", "user" : "human", "assistant" : "gpt"},
-)
-
-def formatting_prompts_func(examples):
-    convos = examples["conversations"]
-    texts = [tokenizer.apply_chat_template(convo, tokenize = False, add_generation_prompt = False) for convo in convos]
-    return { "text" : texts, }
-pass
-
-from datasets import load_dataset
-dataset = load_dataset("darrylnurse/york-share-gpt", split = "train")
-dataset = dataset.map(formatting_prompts_func, batched = True,)
-
-from trl import SFTTrainer
-from transformers import TrainingArguments
-from unsloth import is_bfloat16_supported
+dataset = import_dataset()
 
 trainer = SFTTrainer(
     model = model,
@@ -47,7 +29,7 @@ trainer = SFTTrainer(
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
-        output_dir = "outputs",
+        output_dir = "../output",
     ),
 )
 
@@ -55,3 +37,5 @@ trainer_stats = trainer.train()
 
 print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
 print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
+
+model.save_pretrained_gguf("model", tokenizer, quantization_method = "f16")

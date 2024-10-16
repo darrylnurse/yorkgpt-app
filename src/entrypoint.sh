@@ -15,6 +15,8 @@ echo 3 > /proc/sys/vm/drop_caches
 # pull model
 ollama pull yorkgpt/yorkgpt
 
+echo "YorkGpt Model pulled successfully."
+
 # clear disk cache
 echo 3 > /proc/sys/vm/drop_caches
 

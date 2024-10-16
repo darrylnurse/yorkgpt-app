@@ -15,8 +15,11 @@ COPY /src /app/src
 
 # install python packages
 RUN pip3 install --upgrade pip \
-    && pip3 install -r /app/src/api/api_requirements.txt \
-    && pip3 install -r /app/src/train/train_requirements.txt
+    && pip3 install -r /app/src/api/api_requirements.txt 
+
+# install the train requirements this way because they are more complex
+RUN chmod +x /app/src/train/train_requirements.sh
+RUN /app/src/train/train_requirements.sh 
 
 # copy cron file to the cronjob directory
 ADD /src/cronjobs /etc/cronjobs

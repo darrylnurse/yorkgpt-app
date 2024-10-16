@@ -1,7 +1,7 @@
 from langchain_cohere import CohereEmbeddings
 from langchain_postgres import PGVector
 from langchain_postgres.vectorstores import PGVector
-from get_key import get_key
+from ..get_key import get_key
 
 # global vectorstore variable
 _vectorstore = None

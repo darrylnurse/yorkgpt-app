@@ -1,5 +1,5 @@
 from unsloth import FastLanguageModel
-from api.get_key import get_key
+from get_key import get_key
 import threading
 
 max_seq_length = 2048
@@ -31,4 +31,5 @@ def get_model_and_tokenizer():
                 use_rslora = False,
                 loftq_config = None,
             )
+
     return _model, _tokenizer

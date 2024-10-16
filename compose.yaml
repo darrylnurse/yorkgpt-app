@@ -15,7 +15,7 @@ services:
       - OLLAMA_HOST=http://0.0.0.0:11434
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_INTEL_GPU=true
-      - OLLAMA_MAX_LOADED_MODELS=1
+      - OLLAMA_MAX_LOADED_MODELS=2
       - EMBEDDING_API_KEY_FILE=/run/secrets/embedding_api_key
       - HF_TOKEN=/run/secrets/huggingface_token
       - DB_CONNECTION=/run/secrets/db_connection_string

@@ -3,6 +3,7 @@ from transformers import TrainingArguments
 from unsloth import is_bfloat16_supported
 from model_init import get_model_and_tokenizer, max_seq_length
 from import_dataset import import_dataset
+from ...get_key import get_key
 
 model, tokenizer = get_model_and_tokenizer()
 
@@ -29,7 +30,7 @@ trainer = SFTTrainer(
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
-        output_dir = "../output/",
+        output_dir = "../output",
     ),
 )
 
@@ -38,5 +39,13 @@ trainer_stats = trainer.train()
 print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
 print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
 
-# missing something
-model.save_pretrained_gguf("model", tokenizer, quantization_method = "f16")
+# save model locally
+model.save_pretrained_gguf("../output/model", tokenizer, quantization_method = "f16")
+
+# save model to huggingface
+model.push_to_hub_gguf(
+        "darrylnurse/yorkgpt", 
+        tokenizer,
+        quantization_method = ["q4_k_m", "q8_0", "q5_k_m",],
+        token = get_key('huggingface_token')
+    )

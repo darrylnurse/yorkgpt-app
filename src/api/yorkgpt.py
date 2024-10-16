@@ -1,7 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
-from reset_vectors import reset_vectors
+from reset_vectorstore import reset_vectorstore
 from vectorstore import get_vectorstore
 import json
 
@@ -13,7 +13,7 @@ llm = ChatOllama(
 )
 
 # create vectors in the database
-reset_vectors()
+reset_vectorstore()
 
 def get_model_response(question) :
 

@@ -29,7 +29,7 @@ trainer = SFTTrainer(
         weight_decay = 0.01,
         lr_scheduler_type = "linear",
         seed = 3407,
-        output_dir = "../output",
+        output_dir = "../output/",
     ),
 )
 
@@ -38,4 +38,5 @@ trainer_stats = trainer.train()
 print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
 print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
 
+# missing something
 model.save_pretrained_gguf("model", tokenizer, quantization_method = "f16")

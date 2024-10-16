@@ -5,7 +5,7 @@ from clear_vectors import clear_vectors
 # this script will run once a day
 # and will update the RAG with current events
 
-def reset_vectors ():
+def reset_vectorstore ():
     # pull current events from york website api
     docs = rag_data()
 
@@ -19,4 +19,4 @@ def reset_vectors ():
     vectorstore.add_documents(docs, ids=[i for i, doc in enumerate(docs)])
 
 
-reset_vectors()
+reset_vectorstore()

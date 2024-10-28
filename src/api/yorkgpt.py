@@ -15,7 +15,7 @@ llm = ChatOllama(
 # create vectors in the database
 reset_vectorstore()
 
-def get_model_response(question) :
+def get_model_response(question):
 
     # retrieve vectorstore
     vectorstore = get_vectorstore()
@@ -49,4 +49,5 @@ def get_model_response(question) :
         "context": context
     })
 
+    print('Response has been generated.')
     return result.content if hasattr(result, 'content') else None

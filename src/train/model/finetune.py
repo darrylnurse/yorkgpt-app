@@ -3,7 +3,7 @@ from transformers import TrainingArguments
 from unsloth import is_bfloat16_supported
 from model_init import get_model_and_tokenizer, max_seq_length
 from import_dataset import import_dataset
-from ...get_key import get_key
+from get_key import get_key
 
 model, tokenizer = get_model_and_tokenizer()
 

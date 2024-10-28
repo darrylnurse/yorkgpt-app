@@ -18,5 +18,4 @@ def reset_vectorstore ():
     # upsert vectors into database
     vectorstore.add_documents(docs, ids=[i for i, doc in enumerate(docs)])
 
-
-reset_vectorstore()
+    print('Vectorstore created successfully.')

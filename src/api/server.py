@@ -31,5 +31,5 @@ def yorkgpt():
 
 # start the Flask server
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=3000)
     print('Server is running on port 3000.')
+    serve(app, host="0.0.0.0", port=3000)

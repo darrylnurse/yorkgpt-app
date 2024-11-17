@@ -1,42 +1,53 @@
 import requests
+from datetime import datetime, timezone
 from langchain_core.documents import Document
 
+# call from @search endpoint
+# get all events
+# go to event endpoint
+# check if event date > current date
+# then add it to items
+
+NUM_ENDPOINTS = 2500
+
+def formatDate(iso_date: str) -> str:
+        parsed_date = datetime.fromisoformat(iso_date)
+        return parsed_date.strftime("%m %d, %Y at %I:%M %p")
+
 def rag_data():
-    base_url = "https://www.york.cuny.edu/++api++/events"
-    def fetch(url):
-        response = requests.get(url)
-        data = response.json()
-        return data
 
-    items = fetch(base_url).get('items', [])
+    url = f'https://www.york.cuny.edu/++api++/@search?fullobjects=1&b_size={NUM_ENDPOINTS}&portal_type=Event'
 
-    # the first item is just metadata
-    events=items[1:len(items)]
-
-    # turn each url into the api version
-    def apifyUrl(url):
-        return url.replace('/events', "/++api++/events")
-
-    # we need all the urls to get data from
-    event_urls = []
-    for event in events:
-        event_url = event['@id']
-        event_urls.append(apifyUrl(event_url))
-
-    # visit each url to extract metadata:
-    # title, description, datetime, and location
     event_docs = []
-    for event_url in event_urls:
-        event_info = {}
-        data = fetch(event_url)
-        event_info['description'] = data.get('description')
-        event_info['location'] = data.get('location')
-        doc = Document(
-            page_content=data.get('title'),
-            metadata=event_info
-        )
-        event_docs.append(doc)
+    current_date = datetime.now(timezone.utc)
 
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        
+        if not response.headers.get('Content-Type') == 'application/json':
+            raise Exception('Response was not JSON')
+        
+        data = response.json()
+        items = data.get('items')
+        for item in items:
+            date_string = str(item['start'])
+            given_date = datetime.fromisoformat(date_string)
+
+            if given_date > current_date:
+                doc = Document(
+                        page_content = item['title'],
+                        metadata = {
+                        "description": item['description'],
+                        "location": item['location'],
+                        "start": formatDate(item['start']),
+                        "end": formatDate(item['end'])
+                        }
+                )
+                event_docs.append(doc)
+    except requests.exceptions.RequestException as e:
+        print("An error occurred:", e)
+    
     return event_docs
 
 

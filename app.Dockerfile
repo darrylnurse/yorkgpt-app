@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get clean 
 
 # install ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.3.13 sh
 
 # copy files into app
 COPY /src /app/src

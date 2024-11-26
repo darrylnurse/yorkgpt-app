@@ -11,11 +11,6 @@ services:
       - 3000:3000
     tty: true
     environment:
-      - OLLAMA_MODELS=../../root/.ollama/models
-      - OLLAMA_HOST=http://0.0.0.0:11434
-      - OLLAMA_KEEP_ALIVE=24h
-      - OLLAMA_INTEL_GPU=true
-      - OLLAMA_MAX_LOADED_MODELS=2
       - EMBEDDING_API_KEY_FILE=/run/secrets/embedding_api_key
       - HF_TOKEN=/run/secrets/huggingface_token
       - DB_CONNECTION=/run/secrets/db_connection_string

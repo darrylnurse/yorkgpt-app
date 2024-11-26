@@ -1,5 +1,11 @@
 FROM ubuntu:22.04
 
+ENV OLLAMA_HOST=http://0.0.0.0:11434
+ENV OLLAMA_KEEP_ALIVE=24h
+ENV OLLAMA_INTEL_GPU=true
+ENV OLLAMA_MAX_LOADED_MODELS=2
+ENV OLLAMA_MODELS=/root/.ollama/models
+
 WORKDIR /app
 
 # install curl, python3, python package installer, cron and dos2unix (used to change file from CRLF to LF)
@@ -35,4 +41,6 @@ RUN crontab /etc/cronjobs
     
 EXPOSE 3000
 
-ENTRYPOINT ["/app/src/entrypoint.sh"]
+RUN chmod +x /app/src/entrypoint.sh
+
+ENTRYPOINT ["sh", "/app/src/entrypoint.sh"]

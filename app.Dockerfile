@@ -1,5 +1,11 @@
 FROM ubuntu:22.04
 
+ENV OLLAMA_HOST=http://0.0.0.0:11434
+ENV OLLAMA_KEEP_ALIVE=24h
+ENV OLLAMA_INTEL_GPU=true
+ENV OLLAMA_MAX_LOADED_MODELS=2
+ENV OLLAMA_MODELS=/root/.ollama/models
+
 WORKDIR /app
 
 # install curl, python3, python package installer, cron and dos2unix (used to change file from CRLF to LF)
@@ -8,17 +14,18 @@ RUN apt-get update \
     && apt-get clean 
 
 # install ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.3.13 sh
 
 # copy files into app
 COPY /src /app/src
 
 # install python packages
 RUN pip3 install --upgrade pip \
-    && pip3 install -r /app/src/requirements.txt
+    && pip3 install -r /app/src/api/api_requirements.txt 
 
-# make sure the python file has executable permissions
-RUN chmod +x /app/src/colabctl.py
+# install the train requirements this way because they are more complex
+RUN chmod +x /app/src/train/train_requirements.sh
+RUN /app/src/train/train_requirements.sh 
 
 # copy cron file to the cronjob directory
 ADD /src/cronjobs /etc/cronjobs
@@ -34,4 +41,6 @@ RUN crontab /etc/cronjobs
     
 EXPOSE 3000
 
-ENTRYPOINT ["/app/src/entrypoint.sh"]
+RUN chmod +x /app/src/entrypoint.sh
+
+ENTRYPOINT ["sh", "/app/src/entrypoint.sh"]

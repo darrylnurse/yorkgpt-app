@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: app.Dockerfile
+    image: darrylnurse/yorkgpt:v0.1
     container_name: yorkgpt-server
     volumes:
       - ./src:/app/src
@@ -10,16 +11,13 @@ services:
       - 3000:3000
     tty: true
     environment:
-      - OLLAMA_MODELS=../../root/.ollama/models
-      - OLLAMA_HOST=http://0.0.0.0:11434
-      - OLLAMA_KEEP_ALIVE=24h
-      - OLLAMA_INTEL_GPU=true
-      - OLLAMA_MAX_LOADED_MODELS=1
       - EMBEDDING_API_KEY_FILE=/run/secrets/embedding_api_key
+      - HF_TOKEN=/run/secrets/huggingface_token
     privileged: true
     restart: unless-stopped
     secrets:
       - embedding_api_key
+      - huggingface_token
     depends_on:
       - vectordb
   
@@ -38,3 +36,5 @@ services:
 secrets:
   embedding_api_key:
     file: ./embedding_api_key.txt
+  huggingface_token:
+    file: ./huggingface_token.txt

@@ -8,6 +8,14 @@
 # Installation
 Pull the repo using ```git clone```.
 
+You will need to create three files with these *exact* names:
+- ```huggingface_token.txt```
+- ```embedding_api_key.txt```
+
+Place the Huggingface Token in ```huggingface_token.txt```.
+
+Place the Cohere Embedding API Key in ```embedding_api_key.txt```.
+
 Then, make sure your Docker Engine is started by opening your Docker Desktop. If not, you will get an Error saying: "Is the Docker Engine running?".
 
 In the directory of the project, run ```docker compose up -d```.

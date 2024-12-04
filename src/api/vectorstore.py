@@ -6,13 +6,15 @@ from get_key import get_key
 # global vectorstore variable
 _vectorstore = None
 
+db_connection_string = 'postgresql+psycopg://rag:langchain@vectordb:5432/vectordb'
+
 # the vectorstore is only created when needed
 def get_vectorstore():
     try:
         global _vectorstore
         if _vectorstore is None:
             # initialize database options
-            connection = get_key('db_connection_string')
+            connection = db_connection_string
             embeddings = CohereEmbeddings(
                 cohere_api_key = get_key('embedding_api_key'),
                 model = "embed-english-light-v3.0"

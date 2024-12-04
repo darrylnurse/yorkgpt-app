@@ -13,13 +13,11 @@ services:
     environment:
       - EMBEDDING_API_KEY_FILE=/run/secrets/embedding_api_key
       - HF_TOKEN=/run/secrets/huggingface_token
-      - DB_CONNECTION=/run/secrets/db_connection_string
     privileged: true
     restart: unless-stopped
     secrets:
       - embedding_api_key
       - huggingface_token
-      - db_connection_string
     depends_on:
       - vectordb
   
@@ -40,5 +38,3 @@ secrets:
     file: ./embedding_api_key.txt
   huggingface_token:
     file: ./huggingface_token.txt
-  db_connection_string:
-    file: ./db_connection_string.txt

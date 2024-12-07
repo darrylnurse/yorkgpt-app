@@ -24,15 +24,19 @@ services:
   vectordb:
     image: pgvector/pgvector:pg16
     container_name: vector-db
-    ports:
-      - 5432:5432
     restart: unless-stopped
     environment:
       - POSTGRES_DB=vectordb
       - POSTGRES_USER=rag
       - POSTGRES_PASSWORD=langchain
       - POSTGRES_HOST_AUTH_METHOD=trust
-  
+
+  historydb:
+    image: redis:7.4.1
+    container_name: history-db
+    restart: unless-stopped
+    command: redis-server
+
 secrets:
   embedding_api_key:
     file: ./embedding_api_key.txt
